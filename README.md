@@ -63,11 +63,17 @@ Source it, this applies the changes you made.
 
     source ~/.profile
 
-## Generate SSH Keys
+## SSH
+
+### Generate SSH Keys
 
     mkdir ~/.ssh/id_rsa
     dropbearkey -t rsa -f ~/.ssh/id_rsa
     dropbearkey -y -f ~/.ssh/id_rsa | sed -n 2p > ~/.ssh/id_rsa.pub
+
+### SSH to Omega without Password
+
+Process is outlined on the Wiki: [Adding your Public Key to the Omega](https://wiki.onion.io/Tutorials/Adding-Public-Key-to-Omega)
 
 ## Setting Up Git
 
