@@ -1,0 +1,4 @@
+#!/bin/bash
+# This is derived from: https://stackoverflow.com/questions/19608313/cloning-from-github-on-android-using-terminal-ide/22062806#22062806
+exec ssh -i ~/.ssh/id_rsa "$@"
+
