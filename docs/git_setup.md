@@ -1,5 +1,7 @@
 ## Setting Up Git
 
+In the previous section you should have generated your ssh key... If you have not go back and do it.
+
 ### SSH Key
 
 If you have a git account, put your ssh key into your account.  Go to GitHub's [SSH keys](https://github.com/settings/keys) page.

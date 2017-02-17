@@ -1,19 +1,21 @@
 # Experiments and Notes for Onion Omega2+
 
+I exclusively use `vi` in this documentation, you may substitute `nano` after installing it.
+
 ## Install Some Packages
 
-Stuff for git.
+### Install GIT
 
     opkg install git
     opkg install git-http
     opkg install ca-bundle
 
-Install a better text editor.
+### Install a Better Text Editor
 
     opkg install vim
     opkg install nano
 
-Install BASH.
+### Install BASH
 
     opkg install bash
     vi /etc/passwd
@@ -25,6 +27,10 @@ Change this:
 To this:
 
     root:x:0:0:root:/root:/bin/bash
+
+Log out of the Omega's shell and log back in for this to take effect.  You may test with:
+
+    echo $SHELL
 
 ## Create Your `.profile`
 
@@ -45,7 +51,7 @@ Add some stuff to it.
     alias l='ls -lah'
     export PATH=~/bin:$PATH
     
-Source it.
+Source it, this applies the changes you made.
 
     source ~/.profile
 
