@@ -1,6 +1,12 @@
 # Experiments and Notes for Onion Omega2+
 
+This repo will contain experiments I do with my Omega2+ as well as some notes for doing various things.
+
 I exclusively use `vi` in this documentation, you may substitute `nano` after installing it.
+
+## Experiments
+
+I've just been messing with the OS, there's nothing here yet.
 
 ## Install Some Packages
 
