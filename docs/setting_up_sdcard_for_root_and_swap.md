@@ -156,6 +156,8 @@ This will take a minute and output something like the following.
     Creating journal (16384 blocks): done
     Writing superblocks and filesystem accounting information: done
 
+Unfortunately I'm not certain how to format fat32 for you Windows guys & gals.  Normally you'd use `mkdosfs`, but I'm not sure what package from `opkg` contains it.  I don't use Windows at all any more, so I don't really have much use for fat32.
+
 Format your `Linux swap` partition and enable the swap.
 
     mkswap /dev/mmcblk0p1
@@ -190,6 +192,7 @@ If you have anything in your `/root` currently, move it to `/tmp`.
 
     mkdir /tmp/root_temp
     mv /root/* /tmp/root_temp
+    ls -lah /root
 
 Mount the drive and try writing to it.
 
@@ -234,7 +237,7 @@ This should display something similar to this, take note of your `uuid`, they ar
         option  enabled '0'
 
 
-You'll want to edit the fstab. I use vi, but you may use `nano`.
+You'll want to edit the fstab.
 
     vi /etc/config/fstab
     
