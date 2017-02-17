@@ -122,7 +122,7 @@ If all looks good, write the partition with the `w` command.
     Calling ioctl() to re-read partition table.
     Syncing disks.
 
-This will drop you back to the shell, run `fdisk` again and you should see your partitions have changed and shows something like this.
+This will drop you back to the shell, run `fdisk -l` again and you should see your partitions have changed and shows something like this.
 
     Disk /dev/mmcblk0: 7.2 GiB, 7746879488 bytes, 15130624 sectors
     Units: sectors of 1 * 512 = 512 bytes
