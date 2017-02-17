@@ -8,6 +8,8 @@ I exclusively use `vi` in this documentation, you may substitute `nano` after in
 
 I've just been messing with the OS, there's nothing here yet.
 
+Eventually you'll be able to clone this to your Omega and mess around with it.
+
 ## Install Some Packages
 
 ### Install GIT
