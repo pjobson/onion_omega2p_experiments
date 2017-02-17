@@ -83,3 +83,27 @@ Full readme here: [docs/git_setup.md](docs/git_setup.md)
 
 Full readme here: [docs/setting_up_sdcard_for_root_and_swap.md](docs/setting_up_sdcard_for_root_and_swap.md)
 
+## Node.js
+
+### Install Node and NPM
+
+    opkg install nodejs
+    opkg install npm
+
+I like to store my global node modules in my root directory, so as to not take up too much room in the root file system, this along with my instructions above for setting up SDCARD for `/root` gives me plenty of extra space.
+
+    mkdir -p /root/node/bin
+    npm config set prefix /root/node
+
+Add the node bin to your `.profile`, either edit it or echo to it.
+
+    echo "export PATH=~/node/bin:\$PATH" >> ~/.profile
+    source ~/.profile
+
+Test it out.
+
+    npm install -g lorem-ipsum
+    lorem-ipsum
+    # should output some lorem ipsum text
+    npm remove -g lorem-ipsum
+    
