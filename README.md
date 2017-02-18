@@ -107,3 +107,21 @@ Test it out.
     # should output some lorem ipsum text
     npm remove -g lorem-ipsum
     
+## File Transfer
+
+To send/receive files to/from the device I recommend using `scp`, you'll want to substitute your device's IP for the one I have listed.
+
+    # Receive a single file from your etc to your local machine
+    scp root@10.10.10.250:/etc/openwrt_release .
+    
+    # Receive a full directory from /www to your local machine
+    scp -r root@10.10.10.250:/www .
+    
+    # Send a single file to your root directory
+    scp localfile.txt root@10.10.10.250:~/
+    
+    # Send a full directory to your root directory
+    scp -r /some_path root@10.10.10.250:~/
+    
+
+    
