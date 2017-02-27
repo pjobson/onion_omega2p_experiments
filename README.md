@@ -4,6 +4,8 @@ This repo will contain experiments I do with my Omega2+ as well as some notes fo
 
 I exclusively use `vi` in this documentation, you may substitute `nano` after installing it.
 
+My Omega's IP address is shown in examples here as `10.10.10.250`, you'll need to substitute your own IP address.
+
 My client machine is OSX or Linux, I don't really know how to do anything on Windows any more, I have not really used MS products since WinXP.  These instructions are geared toward using the shell in those operating systems, you can install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) and Linux in your Windows OS and play along if you'd like.
 
 ## Experiments
@@ -12,7 +14,7 @@ I've just been messing with the OS, there's nothing here yet.
 
 Eventually you'll be able to clone this to your Omega and mess around with it.
 
-## Update Firmware From Commandline
+## Update Firmware from Command Line
 
 **Updating your firmware may wipe your device, probably good to just assume it will.**
 
@@ -48,7 +50,11 @@ Don't turn the device off while it is updating or you could brick it.  There is 
 
 After you update you will need to delete the device from your local `~/.ssh/known_hosts` file.
 
-## Wifi Setup from Commandline
+## Wifi Setup from Command Line
+
+Plug your Omega in and from your computer connect to the wifi network it created.  Then SSH into it.  The standard IP address is always `192.168.3.1`.
+
+    ssh root@192.168.3.1
 
 You can use the `wifisetup` command to configure your wifi without the web interface.
 
@@ -62,7 +68,7 @@ You can use the `wifisetup` command to configure your wifi without the web inter
 
     Selection:
 
-If you are not hiding your SSID, select `1`.
+If you are not hiding your SSID, select `1`, otherwise you can manually enter it with `2`.
 
     Selection: 1
     Scanning for wifi networks...
@@ -103,6 +109,10 @@ Login to your router's web interface and navigate to **Network** ⟶ **DHCP and 
 After you bind the MAC to the IP address, hit Save & Apply then reboot or power cycle your Omega.
 
 ## Install Some Packages
+
+### Update the Package Manager
+
+    opkg update
 
 ### Install GIT
 
@@ -173,7 +183,22 @@ If your device is going to be in the wild, be sure to change these.
 
 ### SSH to Omega without Password
 
-Process is outlined on the Wiki: [Adding your Public Key to the Omega](https://wiki.onion.io/Tutorials/Adding-Public-Key-to-Omega)
+On your client machine, if you have not, generate a public and private key with `ssh-keygen`.  You may set a password if you'd like.
+
+    ssh-keygen
+
+Now cat the client's `id_rsa.pub` into your Omega, you'll need to change my IP to yours here.
+
+    cat ~/.ssh/id_rsa.pub | ssh root@10.10.10.250 'cat >> /etc/dropbear/authorized_keys'
+
+This will prompt for your Omega's password then throw an error, you can ignore the error.
+
+    root@10.10.10.250's password:
+    shell-init: error retrieving current directory: getcwd: cannot access parent directories: Not a tty
+
+Now when you ssh from the client to the Omega it should not prompt you.
+
+    root@10.10.10.250
 
 ## Setting Up Git
 
@@ -185,7 +210,7 @@ Full readme here: [docs/setting_up_sdcard_for_root_and_swap.md](docs/setting_up_
 
 ## Node.js
 
-### Install Node and NPM
+Install Node and NPM
 
     opkg install nodejs
     opkg install npm
