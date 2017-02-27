@@ -10,11 +10,8 @@ This was tested on a Onion Omega2+, but will probably work on the Omega2.  I do 
     opkg install fdisk
     opkg install kmod-fs-ext4
     opkg install e2fsprogs
-
-Optional installations.
-
-    opkg install nano
-    opkg install vim
+    opkg install swap-utils
+    opkg install block-mount
 
 ## Finding the SDCARD
 
