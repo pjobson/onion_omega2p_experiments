@@ -1,5 +1,7 @@
 # Experiments and Notes for Onion Omega2+
 
+*As of v0.1.9-b157 DO NOT BUY. This device is still basically a paperweight, yet another crowdsourced alpha product which doesn't actually do anything.  I wasted 279 bucks on several of these and expansion boards.  Don't be me.  The docs are out of date, the onboard LED does not flash, the GPIOs are inaccessable... at least the linux works fairly well.*
+
 This repo will contain experiments I do with my Omega2+ as well as some notes for doing various things.
 
 I exclusively use `vi` in this documentation, you may substitute `nano` after installing it.
