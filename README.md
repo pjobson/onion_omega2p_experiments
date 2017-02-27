@@ -159,7 +159,7 @@ Source it, this applies the changes you made.
 
 ### Generate SSH Keys
 
-    mkdir ~/.ssh/id_rsa
+    mkdir ~/.ssh
     dropbearkey -t rsa -f ~/.ssh/id_rsa
     dropbearkey -y -f ~/.ssh/id_rsa | sed -n 2p > ~/.ssh/id_rsa.pub
 
