@@ -157,6 +157,14 @@ Source it, this applies the changes you made.
 
 ## SSH
 
+### Default Login / Password
+
+If your device is going to be in the wild, be sure to change these.
+
+    Username: root
+    Password: onioneer
+    
+
 ### Generate SSH Keys
 
     mkdir ~/.ssh
