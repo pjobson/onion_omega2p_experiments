@@ -1,7 +1,5 @@
 # Experiments and Notes for Onion Omega2+
 
-*As of v0.1.9-b157 DO NOT BUY. This device is still basically a paperweight, yet another crowdsourced alpha product which doesn't actually do anything.  I wasted 279 bucks on several of these and expansion boards.  Don't be me.  The docs are out of date, the onboard LED does not flash, the GPIOs are inaccessable... at least the linux works fairly well.*
-
 This repo will contain experiments I do with my Omega2+ as well as some notes for doing various things.
 
 I exclusively use `vi` in this documentation, you may substitute `nano` after installing it.
@@ -16,47 +14,41 @@ I've just been messing with the OS, there's nothing here yet.
 
 Eventually you'll be able to clone this to your Omega and mess around with it.
 
-## Update Firmware from Command Line
-
-**Updating your firmware may wipe your device, probably good to just assume it will.**
-
-The update images for the device are hosted on [onion.io](http://repo.onion.io/omega2/images/).  You can use `oupgrade` to automagically update your firmware.
-
-    oupgrade --help
-    
-    Functionality:
-      Check if new Onion firmware is available and perform upgrade
-
-    Usage: /usr/bin/oupgrade
-
-    Arguments:
-     -h, --help        Print this usage prompt
-     -v, --version     Just print the current firmware version
-     -l, --latest      Use latest repo version (instead of stable version)
-     -f, --force       Force the upgrade, regardless of versions
-     -c, --check       Only compare versions, do not actually update
-     -u, --ubus        Script outputs only json
-
-You can force upgrade to a specific version with `sysupgrade`.  At this writing `v0.1.9-b157` was the latest version.
-
-    wget -P /tmp http://repo.onion.io/omega2/images/omega2p-v0.1.9-b157.bin 
-    sysupgrade -n /tmp/omega2p-v0.1.9-b157.bin
-
-This will output something like this and eventually your connection will be broken.
-
-    killall: watchdog: no process killed
-    Sending TERM to remaining processes ... uhttpd device-client avahi-daemon onion-helper udhcpc udhcpc packet_write_wait: 
-    Connection to 10.10.10.250 port 22: Broken pipe
-    
-Don't turn the device off while it is updating or you could brick it.  There is an article on possibly unbricking your device on the [community page](https://community.onion.io/topic/1154/omega-2-usb-firmware-install-after-brick-resolved/4).
-
-After you update you will need to delete the device from your local `~/.ssh/known_hosts` file.
-
 ## Wifi Setup from Command Line
 
-Plug your Omega in and from your computer connect to the wifi network it created.  Then SSH into it.  The standard IP address is always `192.168.3.1`.
+### Connect to Wifi Network
+
+Plug your Omega in and from your computer connect to the wifi network it created.  It will usually be *Omega-XXXX*, where XXXX is the last four letters of your MAC address as shown on top of the device.  The password for this network is `12345678`.
+
+### SSH Into Device
+
+Then SSH into it.  The standard IP address is always `192.168.3.1`.
 
     ssh root@192.168.3.1
+
+#### SSH Host Identification Error
+
+If you have shelled into that IP before you will get the following error.
+
+	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+	Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+	It is also possible that a host key has just been changed.
+	The fingerprint for the RSA key sent by the remote host is
+	SHA256:LJ/ODrlh30b/qpEMFFbuI1Foz2gWIJu/zsx5w9L+xBY.
+	Please contact your system administrator.
+	Add correct host key in /Users/pjobson/.ssh/known_hosts to get rid of this message.
+	Offending RSA key in /Users/pjobson/.ssh/known_hosts:10
+	RSA host key for 192.168.3.1 has changed and you have requested strict checking.
+	Host key verification failed.
+
+To remove your key, either edit your known_hosts file or run:
+
+	ssh-keygen -R 192.168.3.1
+
+### Wifi Setup
 
 You can use the `wifisetup` command to configure your wifi without the web interface.
 
@@ -100,6 +92,42 @@ This sometimes takes a bit to get an IP address, after it is done just reboot an
 
 This should bring the device back up on your regular network.
 
+## Update Firmware from Command Line
+
+**As of version 0.1.9-b158 updating your firmware will wipe your device.**
+
+The update images for the device are hosted on [onion.io](http://repo.onion.io/omega2/images/).  You can use `oupgrade` to automagically update your firmware.
+
+    oupgrade --help
+    
+    Functionality:
+      Check if new Onion firmware is available and perform upgrade
+
+    Usage: /usr/bin/oupgrade
+
+    Arguments:
+     -h, --help        Print this usage prompt
+     -v, --version     Just print the current firmware version
+     -l, --latest      Use latest repo version (instead of stable version)
+     -f, --force       Force the upgrade, regardless of versions
+     -c, --check       Only compare versions, do not actually update
+     -u, --ubus        Script outputs only json
+
+You can force upgrade to a specific version with `sysupgrade`.  At this writing `v0.1.9-b157` was the latest version.
+
+    wget -P /tmp http://repo.onion.io/omega2/images/omega2p-v0.1.9-b157.bin 
+    sysupgrade -n /tmp/omega2p-v0.1.9-b157.bin
+
+This will output something like this and eventually your connection will be broken.
+
+    killall: watchdog: no process killed
+    Sending TERM to remaining processes ... uhttpd device-client avahi-daemon onion-helper udhcpc udhcpc packet_write_wait: 
+    Connection to 10.10.10.250 port 22: Broken pipe
+    
+Don't turn the device off while it is updating or you could brick it.  There is an article on possibly unbricking your device on the [community page](https://community.onion.io/topic/1154/omega-2-usb-firmware-install-after-brick-resolved/4).
+
+After you update you will need to delete the device from your local `~/.ssh/known_hosts` file.
+
 ## Forcing an IP Address in an OpenWRT Router
 
 If you use an OpenWRT router and probably other routers you can setup a Static Lease to bind the Omega's MAC address to a specific IP.  This makes it easy to find your device on the network, if you happen to forget the IP address.
@@ -118,13 +146,12 @@ After you bind the MAC to the IP address, hit Save & Apply then reboot or power 
 
 ### Install GIT
 
-    opkg install git
-    opkg install git-http
-    opkg install ca-bundle
+    opkg install git git-http ca-bundle
 
 ### Install a Better Text Editor
 
     opkg install vim
+    ### --- OR --- ###
     opkg install nano
 
 ### Install BASH
@@ -251,4 +278,45 @@ To send/receive files to/from the device I recommend using `scp`, you'll want to
     scp -r /some_path root@10.10.10.250:~/
     
 
-    
+## External Antenna
+
+You can add an external antenna to the device with the IPX jack on the main unit.
+
+![IPX Jack](./images/omega2-IPX.jpg)
+
+You can convert it to a standard wifi antenna with an **IPX to RP-SMA adapter**.  You can get these on [Amazon - ipx to rp-sma](https://goo.gl/yXCly5) or [eBay - ipx to rp-sma](https://goo.gl/BwT5Vr) or various other places.  
+
+![IPX to RP-SMA](./images/ipx-to-rp-sma.jpg)
+
+Otherwise you can use an IPX antenna, I used this one which I had laying around and afixed the antenna to the bottom of the unit.  You can get IPX antennas also from again [Amazon - IPX antenna](https://goo.gl/pWwB2Q) or [eBay - IPX antenna](https://goo.gl/uabwr6) or various other places.
+
+![IPX Modification](./images/ipx-mod.jpg)
+
+I got a slight speed increase using [speedtest-cli](https://github.com/sivel/speedtest-cli) after adding the external antenna.
+
+Before external antenna.
+
+	root@Omega-ADBD:/tmp# ./speedtest-cli
+	Retrieving speedtest.net configuration...
+	Testing from Verizon Fios (xxx.xxx.xxx.xxx)...
+	Retrieving speedtest.net server list...
+	Selecting best server based on ping...
+	Hosted by Shentel Service Company (Ashburn, VA) [7.69 km]: 21.32 ms
+	Testing download speed................................................................................
+	Download: 10.16 Mbit/s
+	Testing upload speed....................................................................................................
+	Upload: 11.48 Mbit/s
+
+
+After external antenna.
+
+	root@Omega-ADBD:/tmp# ./speedtest-cli
+	Retrieving speedtest.net configuration...
+	Testing from Verizon Fios (xxx.xxx.xxx.xxx)...
+	Retrieving speedtest.net server list...
+	Selecting best server based on ping...
+	Hosted by GigeNET (Ashburn, VA) [7.69 km]: 24.893 ms
+	Testing download speed................................................................................
+	Download: 16.73 Mbit/s
+	Testing upload speed....................................................................................................
+	Upload: 10.14 Mbit/s
