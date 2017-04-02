@@ -22,7 +22,7 @@ Plug your Omega in and from your computer connect to the wifi network it created
 
 ### SSH Into Device
 
-Then SSH into it.  The standard IP address is always `192.168.3.1`.
+Then SSH into it.  The standard IP address is always `192.168.3.1`, the default password is always `onioneer`.
 
     ssh root@192.168.3.1
 
@@ -44,7 +44,7 @@ If you have shelled into that IP before you will get the following error.
 	RSA host key for 192.168.3.1 has changed and you have requested strict checking.
 	Host key verification failed.
 
-To remove your key, either edit your known_hosts file or run:
+To remove your key, either edit your client's `~/.ssh/known_hosts` file or run.
 
 	ssh-keygen -R 192.168.3.1
 	ssh root@192.168.3.1
@@ -209,6 +209,15 @@ If your device is going to be in the wild, be sure to change these.
 
     mkdir ~/.ssh
     dropbearkey -t rsa -f ~/.ssh/id_rsa
+
+If you already generated an rsa key perhaps stored on an SD card, you may get the following error.
+
+	Generating key, this may take a while...
+	Couldn't create new file /root/.ssh/id_rsa: File exists
+	Exited: Failed to generate key.
+
+Don't worry, just continue on.
+
     dropbearkey -y -f ~/.ssh/id_rsa | sed -n 2p > ~/.ssh/id_rsa.pub
 
 ### SSH to Omega without Password
@@ -230,6 +239,16 @@ Now when you ssh from the client to the Omega it should not prompt you.
 
     root@10.10.10.250
 
+## Installing Console from Command Line
+
+Now that your Omega is all setup and ready to go, you can install the console if you fancy a GUI/Web Interface. Run the following commands:
+
+	uci set onion.console.setup=1
+	uci set onion.console.install=2
+	uci commit onion
+
+Information on using the console is available from Onion at [Accessing the Console](https://docs.onion.io/omega2-docs/accessing-the-console.html).
+
 ## Setting Up Git
 
 Full readme here: [docs/git_setup.md](docs/git_setup.md)
@@ -242,8 +261,8 @@ Full readme here: [docs/setting_up_sdcard_for_root_and_swap.md](docs/setting_up_
 
 Install Node and NPM
 
-    opkg install nodejs
-    opkg install npm
+    opkg update
+    opkg install nodejs npm
 
 I like to store my global node modules in my root directory, so as to not take up too much room in the root file system, this along with my instructions above for setting up SDCARD for `/root` gives me plenty of extra space.
 
