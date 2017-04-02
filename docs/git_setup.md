@@ -1,6 +1,6 @@
 ## Setting Up Git
 
-In the previous section you should have generated your ssh key... If you have not go back and do it.
+In the **SSH (After Wifi Setup)** section you should have generated your ssh key. If you have not go back and do it.
 
 ### SSH Key
 
@@ -28,13 +28,14 @@ This section is largely derived from this [answer on stackoverflow](https://stac
 
 Normally you should be able to ssh into github as shown above, it won't give you a shell, but it will give you a friendly message.
 
-You can ssh as such, this is what you actually want to see.
+You can `ssh` specifying your user's specific `id_rsa` key and get the friendly authentication message.
 
     ssh -i ~/.ssh/id_rsa git@github.com
     Hi pjobson! You've successfully authenticated, but GitHub does not provide shell access.
 
 Get the `ssh-git` script from my repo.
 
+    mkdir -p ~/bin
     cd ~/bin
     wget https://raw.githubusercontent.com/pjobson/onion_omega2p_experiments/master/bin/ssh-git
     chmod +x ssh-git
@@ -43,7 +44,7 @@ Edit your `.profile`.
 
     vi ~/.profile
 
-Add some EXPORTS, replace your info where relevant.
+Add these exports, replace your info where relevant.
 
     export GIT_SSH=~/bin/ssh-git
     export GIT_AUTHOR_NAME="USER NAME"
