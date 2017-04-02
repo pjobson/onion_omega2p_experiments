@@ -16,194 +16,28 @@ Eventually you'll be able to clone this to your Omega and mess around with it.
 
 ## Wifi Setup from Command Line
 
-### Connect to Wifi Network
-
-Plug your Omega in and from your computer connect to the wifi network it created.  It will usually be *Omega-XXXX*, where XXXX is the last four letters of your MAC address as shown on top of the device.  The password for this network is `12345678`.
-
-### SSH Into Device
-
-Then SSH into it.  The standard IP address is always `192.168.3.1`, the default password is always `onioneer`.
-
-    ssh root@192.168.3.1
-
-#### SSH Host Identification Error
-
-If you have shelled into that IP before you will get the following error.
-
-	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
-	@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
-	Someone could be eavesdropping on you right now (man-in-the-middle attack)!
-	It is also possible that a host key has just been changed.
-	The fingerprint for the RSA key sent by the remote host is
-	SHA256:LJ/ODrlh30b/qpEMFFbuI1Foz2gWIJu/zsx5w9L+xBY.
-	Please contact your system administrator.
-	Add correct host key in /Users/pjobson/.ssh/known_hosts to get rid of this message.
-	Offending RSA key in /Users/pjobson/.ssh/known_hosts:10
-	RSA host key for 192.168.3.1 has changed and you have requested strict checking.
-	Host key verification failed.
-
-To remove your key, either edit your client's `~/.ssh/known_hosts` file or run.
-
-	ssh-keygen -R 192.168.3.1
-	ssh root@192.168.3.1
-
-### Wifi Setup
-
-You can use the `wifisetup` command to configure your wifi without the web interface.
-
-    root@Omega-ADBD:~# wifisetup
-    Onion Omega Wifi Setup
-
-    Select from the following:
-    1) Scan for Wifi networks
-    2) Type network info
-    q) Exit
-
-    Selection:
-
-If you are not hiding your SSID, select `1`, otherwise you can manually enter it with `2`.
-
-    Selection: 1
-    Scanning for wifi networks...
-
-    Select Wifi network:
-    1) Neighbor's Network 1
-    2) Neighbor's Network 2
-    3) Neighbor's Network 3
-    4) Neighbor's Network 4
-    5) Whatever You Named Your Network
-    6) Neighbor's Network 5
-    7) Neighbor's Network 6
-    8) Neighbor's Network 7
-
-Select your network.
-
-    Selection: 5
-    Network: Whatever You Named Your Network
-    Authentication type: WPA2PSK
-    Enter password: Your_Password_Here
-
-    > Restarting wifimanager for changes to take effect
-
-This sometimes takes a bit to get an IP address, after it is done just reboot and exit to your shell.  You can use the `&&` to run a second command after the first is complete.
-
-    reboot && exit
-
-This should bring the device back up on your regular network.
+[docs/wifi_setup_from_command_line.md](docs/wifi_setup_from_command_line.md)
 
 ## Update Firmware from Command Line
 
-**As of version 0.1.9-b158 updating your firmware will wipe your device.**
-
-The update images for the device are hosted on [onion.io](http://repo.onion.io/omega2/images/).  You can use `oupgrade` to automagically update your firmware.
-
-    oupgrade --help
-    
-    Functionality:
-      Check if new Onion firmware is available and perform upgrade
-
-    Usage: /usr/bin/oupgrade
-
-    Arguments:
-     -h, --help        Print this usage prompt
-     -v, --version     Just print the current firmware version
-     -l, --latest      Use latest repo version (instead of stable version)
-     -f, --force       Force the upgrade, regardless of versions
-     -c, --check       Only compare versions, do not actually update
-     -u, --ubus        Script outputs only json
-
-You can force upgrade to a specific version with `sysupgrade`.  At this writing `v0.1.9-b157` was the latest version.
-
-    wget -P /tmp http://repo.onion.io/omega2/images/omega2p-v0.1.9-b157.bin 
-    sysupgrade -n /tmp/omega2p-v0.1.9-b157.bin
-
-This will output something like this and eventually your connection will be broken.
-
-    killall: watchdog: no process killed
-    Sending TERM to remaining processes ... uhttpd device-client avahi-daemon onion-helper udhcpc udhcpc packet_write_wait: 
-    Connection to 10.10.10.250 port 22: Broken pipe
-    
-Don't turn the device off while it is updating or you could brick it.  There is an article on possibly unbricking your device on the [community page](https://community.onion.io/topic/1154/omega-2-usb-firmware-install-after-brick-resolved/4).
-
-After you update you will need to delete the device from your local `~/.ssh/known_hosts` file.
+[docs/update_firmware_from_command_line.md](docs/update_firmware_from_command_line.md)
 
 ## Forcing an IP Address in an OpenWRT Router
 
-If you use an OpenWRT router and probably other routers you can setup a Static Lease to bind the Omega's MAC address to a specific IP.  This makes it easy to find your device on the network, if you happen to forget the IP address.
-
-Login to your router's web interface and navigate to **Network** ⟶ **DHCP and DNS**.  Here at the bottom you should see *Static Leases* and you can add your Omega's specific MAC address and an IP address on your network.  Here is mine for example, you can see I have a server and a printer listed in there as well.
-
-![Static Leases](./images/screenshot_49.png)
-
-After you bind the MAC to the IP address, hit Save & Apply then reboot or power cycle your Omega.
-
-## Install Some Packages
-
-### Update the Package Manager
-
-    opkg update
-
-### Install GIT
-
-    opkg install git git-http ca-bundle
-
-### Install a Better Text Editor
-
-    opkg install vim
-    ### --- OR --- ###
-    opkg install nano
-
-### Install BASH
-
-    opkg install bash
-    vi /etc/passwd
-
-Change this:
-
-    root:x:0:0:root:/root:/bin/ash
-
-To this:
-
-    root:x:0:0:root:/root:/bin/bash
-
-Log out of the Omega's shell and log back in for this to take effect.  You may test with:
-
-    echo $SHELL
-
-## Create Your `.profile`
-
-Create your local bin.
-
-    mkdir ~/bin
-
-Touch your profile.
-
-    touch ~/.profile
-
-Edit it.
-
-    vi ~/.profile
-
-Add some stuff to it.
-
-    alias l='ls -lah'
-    export PATH=~/bin:$PATH
-    
-Source it, this applies the changes you made.
-
-    source ~/.profile
+[docs/force_ip_openwrt.md](docs/force_ip_openwrt.md)
 
 ## SSH
 
 ### Default Login / Password
 
-If your device is going to be in the wild, be sure to change these.
+If your device is going to be in the wild, be sure to change your password.
 
-    Username: root
-    Password: onioneer
-    
+* Username: root
+* Password: onioneer
+
+Log in to your device.
+
+    ssh root@10.10.10.250
 
 ### Generate SSH Keys
 
@@ -239,6 +73,62 @@ Now when you ssh from the client to the Omega it should not prompt you.
 
     root@10.10.10.250
 
+## Install Some Packages
+
+### Update the Package Manager
+
+    opkg update
+
+### Install GIT
+
+    opkg install git git-http ca-bundle
+
+### Install a Better Text Editor
+
+    opkg install vim
+    ### --- OR --- ###
+    opkg install nano
+
+### Install BASH
+
+    opkg install bash
+    vi /etc/passwd
+
+Change this:
+
+    root:x:0:0:root:/root:/bin/ash
+
+To this:
+
+    root:x:0:0:root:/root:/bin/bash
+
+Log out of the Omega's shell and log back in for this to take effect.  You may test with:
+
+    echo $SHELL
+
+## Create Your .profile
+
+Create your local bin.
+
+    mkdir ~/bin
+
+Touch your profile.
+
+    touch ~/.profile
+
+Edit it.
+
+    vi ~/.profile
+
+Add some stuff to it.
+
+    alias l='ls -lah'
+    export PATH=~/bin:$PATH
+    
+Source it, this applies the changes you made.
+
+    source ~/.profile
+
 ## Installing Console from Command Line
 
 Now that your Omega is all setup and ready to go, you can install the console if you fancy a GUI/Web Interface. Run the following commands:
@@ -255,33 +145,13 @@ Full readme here: [docs/git_setup.md](docs/git_setup.md)
 
 ## Setting Up SDCARD for `/root` and SWAP
 
-Full readme here: [docs/setting_up_sdcard_for_root_and_swap.md](docs/setting_up_sdcard_for_root_and_swap.md)
+[docs/setting_up_sdcard_for_root_and_swap.md](docs/setting_up_sdcard_for_root_and_swap.md)
 
-## Node.js
+## Install & Setup Node.js
 
-Install Node and NPM
-
-    opkg update
-    opkg install nodejs npm
-
-I like to store my global node modules in my root directory, so as to not take up too much room in the root file system, this along with my instructions above for setting up SDCARD for `/root` gives me plenty of extra space.
-
-    mkdir -p /root/node/bin
-    npm config set prefix /root/node
-
-Add the node bin to your `.profile`, either edit it or echo to it.
-
-    echo "export PATH=~/node/bin:\$PATH" >> ~/.profile
-    source ~/.profile
-
-Test it out.
-
-    npm install -g lorem-ipsum
-    lorem-ipsum
-    # should output some lorem ipsum text
-    npm remove -g lorem-ipsum
+[docs/install_node_js.md](docs/install_node_js.md)
     
-## File Transfer
+## File Transfer with SCP
 
 To send/receive files to/from the device I recommend using `scp`, you'll want to substitute your device's IP for the one I have listed.
 
@@ -300,4 +170,4 @@ To send/receive files to/from the device I recommend using `scp`, you'll want to
 
 ## External Antenna
 
-Full readme here: [docs/external_antenna.md](docs/external_antenna.md)
+[docs/external_antenna.md](docs/external_antenna.md)
