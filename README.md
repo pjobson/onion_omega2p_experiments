@@ -47,6 +47,7 @@ If you have shelled into that IP before you will get the following error.
 To remove your key, either edit your known_hosts file or run:
 
 	ssh-keygen -R 192.168.3.1
+	ssh root@192.168.3.1
 
 ### Wifi Setup
 

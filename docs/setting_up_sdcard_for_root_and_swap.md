@@ -7,11 +7,7 @@ This was tested on a Onion Omega2+, but will probably work on the Omega2.  I do 
 ## Install Packages
 
     opkg update
-    opkg install fdisk
-    opkg install kmod-fs-ext4
-    opkg install e2fsprogs
-    opkg install swap-utils
-    opkg install block-mount
+    opkg install fdisk kmod-fs-ext4 e2fsprogs swap-utils block-mount
 
 ## Finding the SDCARD
 
@@ -21,7 +17,7 @@ Then insert your sdcard and find it.
 
 There will be several entries, you are looking for something like this.  I'm using an 8GB SD card, it recognizes it as 7.2 GiB.
 
-    Disk /dev/mmcblk0: 7.2 GiB, 7746879488 bytes, 15130624 sectors
+	Disk /dev/mmcblk0: 7.2 GiB, 7746879488 bytes, 15130624 sectors
 	Units: sectors of 1 * 512 = 512 bytes
 	Sector size (logical/physical): 512 bytes / 512 bytes
 	I/O size (minimum/optimal): 512 bytes / 512 bytes
