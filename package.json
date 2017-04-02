@@ -1,0 +1,24 @@
+{
+  "name": "onion_omega2p_experiments",
+  "version": "1.0.0",
+  "description": "Onion Omega2+ Experiments",
+  "bin": {},
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pjobson/onion_omega2p_experiments.git"
+  },
+  "author": "Paul Jobson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pjobson/onion_omega2p_experiments/issues"
+  },
+  "homepage": "https://github.com/pjobson/onion_omega2p_experiments#readme",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "minimist": "^1.2.0"
+  }
+}
