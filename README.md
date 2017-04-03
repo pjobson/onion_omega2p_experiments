@@ -16,17 +16,11 @@ Eventually you'll be able to clone this to your Omega and mess around with it.
 
 ## Wifi Setup from Command Line
 
+This section describes connecting to the device's wifi network and connecting to it via SSH.  This is useful if you do not want to mess around with the Web UI.
+
 [docs/wifi_setup_from_command_line.md](docs/wifi_setup_from_command_line.md)
 
-## Update Firmware from Command Line
-
-[docs/update_firmware_from_command_line.md](docs/update_firmware_from_command_line.md)
-
-## Forcing an IP Address in an OpenWRT Router
-
-[docs/force_ip_openwrt.md](docs/force_ip_openwrt.md)
-
-## SSH
+## SSH (After Wifi Setup)
 
 ### Default Login / Password
 
@@ -72,6 +66,14 @@ This will prompt for your Omega's password then throw an error, you can ignore t
 Now when you ssh from the client to the Omega it should not prompt you.
 
     root@10.10.10.250
+
+## Update Firmware from Command Line
+
+[docs/update_firmware_from_command_line.md](docs/update_firmware_from_command_line.md)
+
+## Forcing an IP Address in an OpenWRT Router
+
+[docs/force_ip_openwrt.md](docs/force_ip_openwrt.md)
 
 ## Install Some Packages
 
@@ -141,7 +143,9 @@ Information on using the console is available from Onion at [Accessing the Conso
 
 ## Setting Up Git
 
-Full readme here: [docs/git_setup.md](docs/git_setup.md)
+If you want to use git and be able to do pushes and commits from your device you should follow these instructions.
+
+[docs/git_setup.md](docs/git_setup.md)
 
 ## Setting Up SDCARD for `/root` and SWAP
 
