@@ -1,5 +1,25 @@
 # Experiments and Notes for Onion Omega2+
 
+## Table of Contents
+
+1. [Introduction](#intro)
+2. [Experiments](#experiments)
+3. [Helper Scripts](#helper_scripts)
+4. [Wifi Setup from Command Line](#wifi_setup_cli)
+5. [SSH (After Wifi Setup)](#ssh)
+6. [Update Firmware from Command Line](#update_firmware_from_cli)
+7. [Forcing an IP Address in an OpenWRT Router](#static_lease)
+8. [Install Packages](#install_packages)
+9. [Create Your .profile](#create_profile)
+10. [Installing Console from Command Line](#install_console_from_cli)
+11. [Setting Up Git](#setting_up_git)
+12. [Setting Up SDCARD for /root and SWAP](#setting_up_sdcard)
+13. [Install & Setup Node.js](#install_node)
+14. [File Transfer with SCP](#file_transfer_with_scp)
+15. [External WiFi Antenna](#external_wifi_antenna)
+
+## <a name="intro"></a>Introduction
+
 This repo will contain experiments I do with my Omega2+ as well as some notes for doing various things.
 
 I exclusively use `vi` in this documentation, you may substitute `nano` after installing it.
@@ -8,19 +28,39 @@ My Omega's IP address is shown in examples here as `10.10.10.250`, you'll need t
 
 My client machine is OSX or Linux, I don't really know how to do anything on Windows any more, I have not really used MS products since WinXP.  These instructions are geared toward using the shell in those operating systems, you can install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) and Linux in your Windows OS and play along if you'd like.
 
-## Experiments
+## <a name="experiments"></a>Experiments
 
 I've just been messing with the OS, there's nothing here yet.
 
 Eventually you'll be able to clone this to your Omega and mess around with it.
 
-## Wifi Setup from Command Line
+## <a name="helper_scripts"></a>Helper Scripts
+
+Helper scripts are for doing command line setup without having to know much about the command line.
+
+### `bin/generate_ssh_keys.sh`
+
+Generates your SSH keys for you, see: [SSH (After Wifi Setup)](#ssh).
+
+### `bin/install_console.sh`
+
+Installs the Web UI console, see: [Installing Console from Command Line](#install_console_from_cli).
+
+### `bin/install_packages.sh`
+
+Installs various packages for you, see: [Install Packages](#install_packages).
+
+### `bin/set_shell_to_bash.sh`
+
+Installs bash and sets root's shell to it, see: [Install Packages](#install_packages).
+
+## <a name="wifi_setup_cli"></a>Wifi Setup from Command Line
 
 This section describes connecting to the device's wifi network and connecting to it via SSH.  This is useful if you do not want to mess around with the Web UI.
 
 [docs/wifi_setup_from_command_line.md](docs/wifi_setup_from_command_line.md)
 
-## SSH (After Wifi Setup)
+## <a name="ssh"></a>SSH (After Wifi Setup)
 
 ### Default Login / Password
 
@@ -67,15 +107,15 @@ Now when you ssh from the client to the Omega it should not prompt you.
 
     root@10.10.10.250
 
-## Update Firmware from Command Line
+## <a name="update_firmware_from_cli"></a>Update Firmware from Command Line
 
 [docs/update_firmware_from_command_line.md](docs/update_firmware_from_command_line.md)
 
-## Forcing an IP Address in an OpenWRT Router
+## <a name="static_lease"></a>Forcing an IP Address in an OpenWRT Router
 
 [docs/force_ip_openwrt.md](docs/force_ip_openwrt.md)
 
-## Install Some Packages
+## <a name="install_packages"></a>Install Packages
 
 ### Update the Package Manager
 
@@ -108,7 +148,7 @@ Log out of the Omega's shell and log back in for this to take effect.  You may t
 
     echo $SHELL
 
-## Create Your .profile
+## <a name="create_profile"></a>Create Your .profile
 
 Create your local bin.
 
@@ -131,7 +171,7 @@ Source it, this applies the changes you made.
 
     source ~/.profile
 
-## Installing Console from Command Line
+## <a name="install_console_from_cli"></a>Installing Console from Command Line
 
 Now that your Omega is all setup and ready to go, you can install the console if you fancy a GUI/Web Interface. Run the following commands:
 
@@ -141,21 +181,21 @@ Now that your Omega is all setup and ready to go, you can install the console if
 
 Information on using the console is available from Onion at [Accessing the Console](https://docs.onion.io/omega2-docs/accessing-the-console.html).
 
-## Setting Up Git
+## <a name="setting_up_git"></a>Setting Up Git
 
 If you want to use git and be able to do pushes and commits from your device you should follow these instructions.
 
 [docs/git_setup.md](docs/git_setup.md)
 
-## Setting Up SDCARD for `/root` and SWAP
+## <a name="setting_up_sdcard"></a>Setting Up SDCARD for `/root` and SWAP
 
 [docs/setting_up_sdcard_for_root_and_swap.md](docs/setting_up_sdcard_for_root_and_swap.md)
 
-## Install & Setup Node.js
+## <a name="install_node"></a>Install & Setup Node.js
 
 [docs/install_node_js.md](docs/install_node_js.md)
     
-## File Transfer with SCP
+## <a name="file_transfer_with_scp"></a>File Transfer with SCP
 
 To send/receive files to/from the device I recommend using `scp`, you'll want to substitute your device's IP for the one I have listed.
 
@@ -172,6 +212,8 @@ To send/receive files to/from the device I recommend using `scp`, you'll want to
     scp -r /some_path root@10.10.10.250:~/
     
 
-## External Antenna
+## <a name="external_wifi_antenna"></a>External WiFi Antenna
+
+Using an external wifi antenna.
 
 [docs/external_antenna.md](docs/external_antenna.md)
