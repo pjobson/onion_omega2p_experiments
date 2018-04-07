@@ -24,6 +24,12 @@ There will be several entries, you are looking for something like this.  I'm usi
 	
 Take note of the `/dev/mmcblk0` or whatever yours shows.  If you use the wrong one you can screw up your device.
 
+## Unmounting the SDCARD
+
+If your SDCARD is currently mounted, you will need to unmount it to modify the partition table.
+
+    umount /dev/mmcblk0
+
 ## Showing Free Memory and Swap
 
     free
