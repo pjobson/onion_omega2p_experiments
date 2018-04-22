@@ -1,6 +1,6 @@
 # Serial Connection
 
-There aren't any specific directions as far as I can tell for connecting the Omega 2+ to get serial output.
+There aren't any specific directions as far as I could find for how exactly to connect the Omega 2+ to get serial output. This hopefully gives a better idea of how to connect the wires.
 
 ## Serial-to-USB Connections
 
@@ -12,7 +12,7 @@ You'll need a Serial-to-USB cable, the specific model I'm using is a **TTL-232RG
 
 You'll need a **ARDUINO DOCK**, suposedly you can do this with the **BREADBOARD DOCK** also, but I really have no idea how.
 
-![Arduino Dock](../images/Arduino Dock R2 - TX RX GND.png)
+![Arduino Dock](../images/Arduino_Dock_R2-TXRXGND.png)
 
 You'll need to connect the TTL-232RG to the Arduino Dock as such.
 
