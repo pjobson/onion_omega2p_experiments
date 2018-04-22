@@ -1,5 +1,7 @@
 # Experiments and Notes for Onion Omega2+
 
+**Warning:** These things are in no particular order, this isn't meant to be a step-by-step tutorial, just a bunch of stuff you can do in the OS if you'd like to.
+
 ## Table of Contents
 
 1. [Introduction](#intro)
