@@ -5,6 +5,7 @@
 ## Table of Contents
 
 1. [Introduction](#intro)
+2. [Command Line](#cli)
 2. [Experiments](#experiments)
 3. [Helper Scripts](#helper_scripts)
 4. [Wifi Setup from Command Line](#wifi_setup_cli)
@@ -30,6 +31,14 @@ I exclusively use `vi` in this documentation, you may substitute `nano` after in
 My Omega's IP address is shown in examples here as `10.10.10.250`, you'll need to substitute your own IP address.
 
 My client machine is OSX or Linux, I don't really know how to do anything on Windows any more, I have not really used MS products since WinXP.  These instructions are geared toward using the shell in those operating systems, you can install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) and Linux in your Windows OS and play along if you'd like.
+
+## <a name="cli"></a>Command Line
+
+This is geard toward people who are used to working in Linux terminal environment. If you don't have much experience with this, I highly recommend you setup a Linux computer or Virutal Machine and experiment.  Checkout [LinuxCommand.org](http://linuxcommand.org/) to get you started.
+
+One thing I found with rebooting, sometimes your local terminal can get locked up. When I reboot, I also exit:
+
+    reboot && exit
 
 ## <a name="experiments"></a>Experiments
 
