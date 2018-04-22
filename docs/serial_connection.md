@@ -44,4 +44,4 @@ I usually would get to Onion's WARP CORE and then it would hang indefinitely.
 
 ## End Game
 
-I wound up throwing the device out after messing with this garbage for several hours. No matter what order I'd insert the plug and push the button, it would either come up and instantly decompress the kernel or go into an unusable failsafe mode or very rarely allow me to hit 2 to boot USB, though after hitting 2 it would look at the flash drive and hang or decompress the kernel.  I have a feeling these devices are basically fucking garbage.
+No matter what order I'd insert the plug and push the button, it would either come up and instantly decompress the kernel or go into an unusable failsafe mode or very rarely allow me to hit 2 to boot USB, though after hitting 2 it would look at the flash drive and hang or decompress the kernel.
