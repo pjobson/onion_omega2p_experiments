@@ -6,21 +6,22 @@
 
 1. [Introduction](#intro)
 2. [Command Line](#cli)
-2. [Experiments](#experiments)
-3. [Helper Scripts](#helper_scripts)
-4. [Wifi Setup from Command Line](#wifi_setup_cli)
-5. [SSH (After Wifi Setup)](#ssh)
-6. [Update Firmware from Command Line](#update_firmware_from_cli)
-7. [Forcing an IP Address in an OpenWRT Router](#static_lease)
-8. [Install Packages](#install_packages)
-9. [Create Your .profile](#create_profile)
-10. [Installing Console from Command Line](#install_console_from_cli)
-11. [Setting Up Git](#setting_up_git)
-12. [Setting Up SDCARD for /root and SWAP](#setting_up_sdcard)
-13. [Install & Setup Node.js](#install_node)
-14. [File Transfer with SCP](#file_transfer_with_scp)
-15. [External WiFi Antenna](#external_wifi_antenna)
-16. [Serial Connection](#serial_connection)
+3. [Experiments](#experiments)
+4. [Helper Scripts](#helper_scripts)
+5. [Wifi Setup from Command Line](#wifi_setup_cli)
+6. [SSH (After Wifi Setup)](#ssh)
+7. [Update Firmware from Command Line](#update_firmware_from_cli)
+8. [Setting Up a Static IP Address](#static_ip)
+9. [Forcing an IP Address in an OpenWRT Router](#static_lease)
+10. [Install Packages](#install_packages)
+11. [Create Your .profile](#create_profile)
+12. [Installing Console from Command Line](#install_console_from_cli)
+13. [Setting Up Git](#setting_up_git)
+14. [Setting Up SDCARD for /root and SWAP](#setting_up_sdcard)
+15. [Install & Setup Node.js](#install_node)
+16. [File Transfer with SCP](#file_transfer_with_scp)
+17. [External WiFi Antenna](#external_wifi_antenna)
+18. [Serial Connection](#serial_connection)
 
 ## <a name="intro"></a>Introduction
 
@@ -118,6 +119,27 @@ This will prompt for your Omega's password then throw an error, you can ignore t
 Now when you ssh from the client to the Omega it should not prompt you.
 
     root@10.10.10.250
+
+## <a name="static_ip"></a>Setting Up a Static IP Address
+
+You can setup a static IP address by modifying you `network` config file.
+
+    vi /etc/config/network
+
+Look for you `wwan` interface and comment it out, then add the following.  Your network may be different than mine, keep that in mind when editing this, you can lock yourself out of the device by mistake if you put in the wrong stuff. The `gateway` should be your router, the `dns-nameservers` and `dns` may be your router if it provides DNS otherwise use `1.1.1.1` which is [a partnership between Cloudflare and APNIC](https://1.1.1.1/).
+
+    config interface 'wwan'
+        option proto 'static'
+        option hostname 'Omega-6031'
+        option ipaddr '10.10.10.250'
+        option netmask '255.255.255.0'
+        option gateway '10.10.10.1'
+        option dns-nameservers '10.10.10.1'
+        option dns '10.10.10.1'
+
+Then restart networking and exit then you should be able to ssh into that static IP.
+
+    /etc/init.d/network restart && exit
 
 ## <a name="update_firmware_from_cli"></a>Update Firmware from Command Line
 

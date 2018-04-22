@@ -8,6 +8,8 @@ This was tested on a Onion Omega2+, but will probably work on the Omega2.  I do 
 
     opkg update
     opkg install fdisk kmod-fs-ext4 e2fsprogs swap-utils block-mount
+    
+Some Onion versions show an error when installing `kmod-fs-ext4`, you should update the the latest if you run into problems.
 
 ## Finding the SDCARD
 
@@ -29,6 +31,10 @@ Take note of the `/dev/mmcblk0` or whatever yours shows.  If you use the wrong o
 If your SDCARD is currently mounted, you will need to unmount it to modify the partition table.
 
     umount /dev/mmcblk0
+
+If you are not mounted it'll show this error.
+
+    umount: can't unmount /dev/mmcblk0: Invalid argument
 
 ## Showing Free Memory and Swap
 
@@ -59,16 +65,19 @@ Once in the `fdisk` program it will prompt you with this.  I recommend hitting `
 You'll probably want to start with `F` to determine how much free space you have.  I'm using an 8GB SDCARD, it shows:
 
     Command (m for help): F ⟵⟵⟵
-    Unpartitioned space /dev/mmcblk0: 7.2 GiB, 7745830912 bytes, 15128576 sectors
+        Unpartitioned space /dev/mmcblk0: 7.2 GiB, 7745830912 bytes, 15128576 sectors
     Units: sectors of 1 * 512 = 512 bytes
     Sector size (logical/physical): 512 bytes / 512 bytes
-
+    
     Start      End  Sectors  Size
      2048 15130623 15128576  7.2G
 
 Next up, create a 2GB `swap` partition with the `n` command.  You will need to make several entries.
 
     Command (m for help): n ⟵⟵⟵
+    Partition number (1,2,4-8, default 1): 1 ⟵⟵⟵
+    
+
     Partition type
     p   primary (0 primary, 0 extended, 4 free)
     e   extended (container for logical partitions)
