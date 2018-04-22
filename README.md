@@ -17,6 +17,7 @@
 13. [Install & Setup Node.js](#install_node)
 14. [File Transfer with SCP](#file_transfer_with_scp)
 15. [External WiFi Antenna](#external_wifi_antenna)
+16. [Serial Connection](#serial_connection)
 
 ## <a name="intro"></a>Introduction
 
@@ -217,3 +218,7 @@ To send/receive files to/from the device I recommend using `scp`, you'll want to
 Using an external wifi antenna.
 
 [docs/external_antenna.md](docs/external_antenna.md)
+
+## <a name="serial_connection"></a>Serial Connection
+
+[docs/serial_connection.md](docs/serial_connection.md)
