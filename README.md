@@ -21,7 +21,8 @@
 15. [Install & Setup Node.js](#install_node)
 16. [File Transfer with SCP](#file_transfer_with_scp)
 17. [External WiFi Antenna](#external_wifi_antenna)
-18. [Serial Connection](#serial_connection)
+18. [Change Access Point Password](#change_ap_password)
+19. [Serial Connection](#serial_connection)
 
 ## <a name="intro"></a>Introduction
 
@@ -251,6 +252,10 @@ To send/receive files to/from the device I recommend using `scp`, you'll want to
 Using an external wifi antenna.
 
 [docs/external_antenna.md](docs/external_antenna.md)
+
+## <a name="change_ap_password"></a>Change Access Point Password
+
+[docs/change_ap_password.md](docs/change_ap_password.md)
 
 ## <a name="serial_connection"></a>Serial Connection
 
