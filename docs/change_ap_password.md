@@ -35,3 +35,9 @@ Look for this:
     	option ssid 'Omega-6031'
 
 Here you can change the password (`key`) to something harder to guess than the default and/or you can disable the access point by changing `option disabled '0'` to `option disabled '1'`.
+
+After you make your changes you can do:
+
+    wifi reload
+    
+ 
