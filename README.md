@@ -1,28 +1,27 @@
 # Experiments and Notes for Onion Omega2+
 
-**Warning:** These things are in no particular order, this isn't meant to be a step-by-step tutorial, just a bunch of stuff you can do in the OS if you'd like to.
+**NOTE:** These things are in order as to what I prefer, you do not have to do all or any of these.
 
 ## Table of Contents
 
-1. [Introduction](#intro)
-2. [Command Line](#cli)
-3. [Experiments](#experiments)
-4. [Helper Scripts](#helper_scripts)
-5. [Wifi Setup from Command Line](#wifi_setup_cli)
-6. [SSH (After Wifi Setup)](#ssh)
-7. [Update Firmware from Command Line](#update_firmware_from_cli)
-8. [Setting Up a Static IP Address](#static_ip)
-9. [Forcing an IP Address in an OpenWRT Router](#static_lease)
-10. [Install Packages](#install_packages)
-11. [Create Your .profile](#create_profile)
-12. [Installing Console from Command Line](#install_console_from_cli)
-13. [Setting Up Git](#setting_up_git)
-14. [Setting Up SDCARD for /root and SWAP](#setting_up_sdcard)
-15. [Install & Setup Node.js](#install_node)
-16. [File Transfer with SCP](#file_transfer_with_scp)
-17. [External WiFi Antenna](#external_wifi_antenna)
-18. [Change Access Point Password](#change_ap_password)
-19. [Serial Connection](#serial_connection)
+* [Introduction](#intro)
+* [Command Line](#cli)
+* [Experiments](#experiments)
+* [Helper Scripts](#helper_scripts)
+* [Wifi Setup from Command Line](#wifi_setup_cli)
+* [SSH (After Wifi Setup)](#ssh)
+* [Basic Upgrades](#basic_upgrades)
+* [Setting Up SDCARD for /root and SWAP](#setting_up_sdcard)
+* [Create Your Profile](#create_profile)
+* [Update Firmware from Command Line](#update_firmware_from_cli)
+* [Forcing an IP Address in an OpenWRT Router](#static_lease)
+* [Installing Console from Command Line](#install_console_from_cli)
+* [Setting Up Git](#setting_up_git)
+* [Install & Setup Node.js](#install_node)
+* [File Transfer with SCP](#file_transfer_with_scp)
+* [External WiFi Antenna](#external_wifi_antenna)
+* [Change Access Point Password](#change_ap_password)
+* [Serial Connection](#serial_connection)
 
 ## <a name="intro"></a>Introduction
 
@@ -50,23 +49,9 @@ Eventually you'll be able to clone this to your Omega and mess around with it.
 
 ## <a name="helper_scripts"></a>Helper Scripts
 
-Helper scripts are for doing command line setup without having to know much about the command line.
+Description of scripts in the `bin/` path.
 
-### `bin/generate_ssh_keys.sh`
-
-Generates your SSH keys for you, see: [SSH (After Wifi Setup)](#ssh).
-
-### `bin/install_console.sh`
-
-Installs the Web UI console, see: [Installing Console from Command Line](#install_console_from_cli).
-
-### `bin/install_packages.sh`
-
-Installs various packages for you, see: [Install Packages](#install_packages).
-
-### `bin/set_shell_to_bash.sh`
-
-Installs bash and sets root's shell to it, see: [Install Packages](#install_packages).
+[docs/helper_scripts.md](docs/helper_scripts.md)
 
 ## <a name="wifi_setup_cli"></a>Wifi Setup from Command Line
 
@@ -76,71 +61,25 @@ This section describes connecting to the device's wifi network and connecting to
 
 ## <a name="ssh"></a>SSH (After Wifi Setup)
 
-### Default Login / Password
+Infomation about connecting via SSH to the Omega after you've completed the wifi setup.
 
-If your device is going to be in the wild, be sure to change your password.
+[docs/ssh.md](docs/ssh.md)
 
-* Username: root
-* Password: onioneer
+## <a name="basic_upgrades"></a>Basic Upgrades
 
-Log in to your device.
+[docs/basic_upgrades.md](docs/basic_upgrades.md)
 
-    ssh root@10.10.10.250
+## <a name="setting_up_sdcard"></a>Setting Up SDCARD for `/root` and SWAP
 
-### Generate SSH Keys
+Information about setting up your SDCARD to be used as your home directory and SWAP space.
 
-    mkdir ~/.ssh
-    dropbearkey -t rsa -f ~/.ssh/id_rsa
+[docs/setting_up_sdcard_for_root_and_swap.md](docs/setting_up_sdcard_for_root_and_swap.md)
 
-If you already generated an rsa key perhaps stored on an SD card, you may get the following error.
+## <a name="create_profile"></a>Create Your Profile
 
-	Generating key, this may take a while...
-	Couldn't create new file /root/.ssh/id_rsa: File exists
-	Exited: Failed to generate key.
+Information about creating a `.profile` file and adding some stuff to it.
 
-Don't worry, just continue on.
-
-    dropbearkey -y -f ~/.ssh/id_rsa | sed -n 2p > ~/.ssh/id_rsa.pub
-
-### SSH to Omega without Password
-
-On your client machine, if you have not, generate a public and private key with `ssh-keygen`.  You may set a password if you'd like.
-
-    ssh-keygen
-
-Now cat the client's `id_rsa.pub` into your Omega, you'll need to change my IP to yours here.
-
-    cat ~/.ssh/id_rsa.pub | ssh root@10.10.10.250 'cat >> /etc/dropbear/authorized_keys'
-
-This will prompt for your Omega's password then throw an error, you can ignore the error.
-
-    root@10.10.10.250's password:
-    shell-init: error retrieving current directory: getcwd: cannot access parent directories: Not a tty
-
-Now when you ssh from the client to the Omega it should not prompt you.
-
-    root@10.10.10.250
-
-## <a name="static_ip"></a>Setting Up a Static IP Address
-
-You can setup a static IP address by modifying you `network` config file.
-
-    vi /etc/config/network
-
-Look for you `wwan` interface and comment it out, then add the following.  Your network may be different than mine, keep that in mind when editing this, you can lock yourself out of the device by mistake if you put in the wrong stuff. The `gateway` should be your router, the `dns-nameservers` and `dns` may be your router if it provides DNS otherwise use `1.1.1.1` which is [a partnership between Cloudflare and APNIC](https://1.1.1.1/).
-
-    config interface 'wwan'
-        option proto 'static'
-        option hostname 'Omega-6031'
-        option ipaddr '10.10.10.250'
-        option netmask '255.255.255.0'
-        option gateway '10.10.10.1'
-        option dns-nameservers '10.10.10.1'
-        option dns '10.10.10.1'
-
-Then restart networking and exit then you should be able to ssh into that static IP.
-
-    /etc/init.d/network restart && exit
+[docs/create_profile.md](docs/create_profile.md)
 
 ## <a name="update_firmware_from_cli"></a>Update Firmware from Command Line
 
@@ -149,62 +88,6 @@ Then restart networking and exit then you should be able to ssh into that static
 ## <a name="static_lease"></a>Forcing an IP Address in an OpenWRT Router
 
 [docs/force_ip_openwrt.md](docs/force_ip_openwrt.md)
-
-## <a name="install_packages"></a>Install Packages
-
-### Update the Package Manager
-
-    opkg update
-
-### Install GIT
-
-    opkg install git git-http ca-bundle
-
-### Install a Better Text Editor
-
-    opkg install vim
-    ### --- OR --- ###
-    opkg install nano
-
-### Install BASH
-
-    opkg install bash
-    vi /etc/passwd
-
-Change this:
-
-    root:x:0:0:root:/root:/bin/ash
-
-To this:
-
-    root:x:0:0:root:/root:/bin/bash
-
-Log out of the Omega's shell and log back in for this to take effect.  You may test with:
-
-    echo $SHELL
-
-## <a name="create_profile"></a>Create Your .profile
-
-Create your local bin.
-
-    mkdir ~/bin
-
-Touch your profile.
-
-    touch ~/.profile
-
-Edit it.
-
-    vi ~/.profile
-
-Add some stuff to it.
-
-    alias l='ls -lah'
-    export PATH=~/bin:$PATH
-    
-Source it, this applies the changes you made.
-
-    source ~/.profile
 
 ## <a name="install_console_from_cli"></a>Installing Console from Command Line
 
@@ -221,10 +104,6 @@ Information on using the console is available from Onion at [Accessing the Conso
 If you want to use git and be able to do pushes and commits from your device you should follow these instructions.
 
 [docs/git_setup.md](docs/git_setup.md)
-
-## <a name="setting_up_sdcard"></a>Setting Up SDCARD for `/root` and SWAP
-
-[docs/setting_up_sdcard_for_root_and_swap.md](docs/setting_up_sdcard_for_root_and_swap.md)
 
 ## <a name="install_node"></a>Install & Setup Node.js
 
