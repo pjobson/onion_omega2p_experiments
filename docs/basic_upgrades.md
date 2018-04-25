@@ -6,7 +6,7 @@
     
 ## Helper Script
 
-This helper script will automatically install a bunch of useful stuff for you.
+This helper script will automatically install a bunch of useful stuff for you.  Including switching your shell to `bash`.
 
     wget https://raw.githubusercontent.com/pjobson/onion_omega2p_experiments/master/bin/install_packages.sh
     cat install_packages.sh

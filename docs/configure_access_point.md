@@ -1,4 +1,4 @@
-# Change Access Point Password
+# Configure Access Point
 
 ## Security Vulnerability
 
@@ -18,26 +18,15 @@ The issue is if someone is looking at access points in your area, finds an `Omeg
 
 ## How to Fix
 
-To fix this, you may either disable the access point or change the password to something which doesn't suck.
+I created a script which you can use to change your Access Point SSID and password.
 
-    vi /etc/config/wireless
+    wget https://raw.githubusercontent.com/pjobson/onion_omega2p_experiments/master/bin/access_point_settings.sh
+    source access_point_settings.sh
 
-Look for this:
+It should be pretty clear what to do, just follow the instructions.
 
-    config wifi-iface 'ap'
-    	option device 'radio0'
-    	option mode 'ap'
-    	option network 'wlan'
-    	option ifname 'ra0'
-    	option encryption 'psk2'
-    	option key '12345678'
-    	option disabled '0'
-    	option ssid 'Omega-6031'
+The script modifies the `wireless.ap.key` and `wireless.ap.ssid` settings.  When you're done messing around with it do a reboot.
 
-Here you can change the password (`key`) to something harder to guess than the default and/or you can disable the access point by changing `option disabled '0'` to `option disabled '1'`.
-
-After you make your changes you can do:
-
-    wifi reload
+    reboot && exit
     
- 
+

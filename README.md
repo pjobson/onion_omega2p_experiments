@@ -9,18 +9,18 @@
 * [Experiments](#experiments)
 * [Helper Scripts](#helper_scripts)
 * [Wifi Setup from Command Line](#wifi_setup_cli)
+* [Installing Web Console from Command Line](#install_web_console_from_cli)
 * [SSH (After Wifi Setup)](#ssh)
+* [Configure Access Point](#configure_access_point)
 * [Basic Upgrades](#basic_upgrades)
 * [Setting Up SDCARD for /root and SWAP](#setting_up_sdcard)
 * [Create Your Profile](#create_profile)
+* [Setting Up Git](#setting_up_git)
 * [Update Firmware from Command Line](#update_firmware_from_cli)
 * [Forcing an IP Address in an OpenWRT Router](#static_lease)
-* [Installing Console from Command Line](#install_console_from_cli)
-* [Setting Up Git](#setting_up_git)
 * [Install & Setup Node.js](#install_node)
 * [File Transfer with SCP](#file_transfer_with_scp)
 * [External WiFi Antenna](#external_wifi_antenna)
-* [Change Access Point Password](#change_ap_password)
 * [Serial Connection](#serial_connection)
 
 ## <a name="intro"></a>Introduction
@@ -59,11 +59,25 @@ This section describes connecting to the device's wifi network and connecting to
 
 [docs/wifi_setup_from_command_line.md](docs/wifi_setup_from_command_line.md)
 
+## <a name="install_web_console_from_cli"></a>Installing Web Console from Command Line
+
+Now that your Omega is all setup and ready to go, you can install the console if you fancy a GUI/Web Interface. Run the following commands:
+
+	uci set onion.console.setup=1
+	uci set onion.console.install=2
+	uci commit onion
+
+Information on using the console is available from Onion at [Accessing the Console](https://docs.onion.io/omega2-docs/accessing-the-console.html).
+
 ## <a name="ssh"></a>SSH (After Wifi Setup)
 
 Infomation about connecting via SSH to the Omega after you've completed the wifi setup.
 
 [docs/ssh.md](docs/ssh.md)
+
+## <a name="configure_access_point"></a>Configure Access Point
+
+[docs/configure_access_point.md](docs/change_ap_password.md)
 
 ## <a name="basic_upgrades"></a>Basic Upgrades
 
@@ -81,6 +95,12 @@ Information about creating a `.profile` file and adding some stuff to it.
 
 [docs/create_profile.md](docs/create_profile.md)
 
+## <a name="setting_up_git"></a>Setting Up Git
+
+If you want to use git and be able to do pushes and commits from your device you should follow these instructions.
+
+[docs/git_setup.md](docs/git_setup.md)
+
 ## <a name="update_firmware_from_cli"></a>Update Firmware from Command Line
 
 [docs/update_firmware_from_command_line.md](docs/update_firmware_from_command_line.md)
@@ -88,22 +108,6 @@ Information about creating a `.profile` file and adding some stuff to it.
 ## <a name="static_lease"></a>Forcing an IP Address in an OpenWRT Router
 
 [docs/force_ip_openwrt.md](docs/force_ip_openwrt.md)
-
-## <a name="install_console_from_cli"></a>Installing Console from Command Line
-
-Now that your Omega is all setup and ready to go, you can install the console if you fancy a GUI/Web Interface. Run the following commands:
-
-	uci set onion.console.setup=1
-	uci set onion.console.install=2
-	uci commit onion
-
-Information on using the console is available from Onion at [Accessing the Console](https://docs.onion.io/omega2-docs/accessing-the-console.html).
-
-## <a name="setting_up_git"></a>Setting Up Git
-
-If you want to use git and be able to do pushes and commits from your device you should follow these instructions.
-
-[docs/git_setup.md](docs/git_setup.md)
 
 ## <a name="install_node"></a>Install & Setup Node.js
 
@@ -131,10 +135,6 @@ To send/receive files to/from the device I recommend using `scp`, you'll want to
 Using an external wifi antenna.
 
 [docs/external_antenna.md](docs/external_antenna.md)
-
-## <a name="change_ap_password"></a>Change Access Point Password
-
-[docs/change_ap_password.md](docs/change_ap_password.md)
 
 ## <a name="serial_connection"></a>Serial Connection
 

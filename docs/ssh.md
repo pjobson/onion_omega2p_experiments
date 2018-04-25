@@ -1,5 +1,7 @@
 # SSH
 
+Connect your client computer back to your regular wifi network.
+
 ## Default Login / Password
 
 If your device is going to be in the wild, be sure to change your password.
