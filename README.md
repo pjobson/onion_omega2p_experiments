@@ -77,7 +77,7 @@ Infomation about connecting via SSH to the Omega after you've completed the wifi
 
 ## <a name="configure_access_point"></a>Configure Access Point
 
-[docs/configure_access_point.md](docs/change_ap_password.md)
+[docs/configure_access_point.md](docs/configure_access_point.md)
 
 ## <a name="basic_upgrades"></a>Basic Upgrades
 
