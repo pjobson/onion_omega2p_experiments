@@ -2,6 +2,8 @@
 
 **NOTE:** These things are in order as to what I prefer, you do not have to do all or any of these.
 
+**NOTE:** The OpenWRT distribution which Onion makes is a completely broken POS, better to just not bother with these units if you want to anything basic like `opkg list` which throws a freaking segfault, not joking at all.  If you install opkg from the repos, it'll brick you device.  
+
 ## Table of Contents
 
 * [Introduction](#intro)
